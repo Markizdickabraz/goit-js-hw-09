@@ -3,7 +3,7 @@
 const body = document.body;
   const  btnStart = document.querySelector('[data-start]');
    const btnStop = document.querySelector('[data-stop]');
-
+let intervalId = null;
 //  функціі вимикання та вмикання кнопки СТАРТ
    const btnStartDisabled = () => {
     btnStart.disabled = true;
@@ -17,7 +17,7 @@ const body = document.body;
 //  в колбек функціі зміна кольору елеиента body,
 //  з інтервалом 1000мс
 btnStart.addEventListener("click", () => {
-  intervalId = setInterval(() => {
+ intervalId = setInterval(() => {
     body.style.backgroundColor = getRandomHexColor();
   }, 1000);
   btnStartDisabled();
