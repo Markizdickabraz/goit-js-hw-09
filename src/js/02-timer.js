@@ -9,12 +9,14 @@ const btnStart = document.querySelector('button[data-start]');
 
 const btnStartDisabled = () => {
   btnStart.disabled = true;
-}
+};
 btnStartDisabled();
 
-   const btnStartActive = () => {
-    btnStart.disabled = false;
-   }
+const btnStartActive = () => {
+  btnStart.disabled = false;
+
+};
+
 
 const options = {
   enableTime: true,
@@ -22,44 +24,29 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    if (this.defaultDate < this.selectedDates[0]){
+    const DateNow = new Date();
+    const selectedDate = selectedDates[0]
+    if (DateNow > selectedDate) {
       window.alert("Please choose a date in the future");
-      console.log(this.defaultDate);
-    }
-    // console.log(this.defaultDate);
+      btnStartDisabled();
+    } else {
+      btnStartActive();
+      console.log(selectedDate)
+    };
   },
 };
 
-
-let selectedDate = [];
-
-let startTime = ' ';
-
-
-// console.log(selectedDate);
-
 flatpickr("#datetime-picker", options);
 
-// isStartTimeMoreSelectedDate();
 
-// function isStartTimeMoreSelectedDate() {
-//   const dateNow = new Date();
-//   // console.log(startTime);
-//   if (startTime < dateNow) {
-//     // console.log(startTime);
-//    return window.alert("Please choose a date in the future");
-//   } if (startTime > dateNow) {
-//     btnStartActive();
-//   }
-// };
-    
+
 function convertMs(ms) {
   // Number of milliseconds per unit of time
   const second = 1000;
   const minute = second * 60;
   const hour = minute * 60;
   const day = hour * 24;
-
+  
   // Remaining days
   const days = Math.floor(ms / day);
   // Remaining hours
@@ -83,3 +70,18 @@ function convertMs(ms) {
 //   }
 // }
 
+// console.log(selectedDate);
+
+// isStartTimeMoreSelectedDate();
+
+// function isStartTimeMoreSelectedDate() {
+//   const dateNow = new Date();
+//   // console.log(startTime);
+//   if (startTime < dateNow) {
+//     // console.log(startTime);
+//    return window.alert("Please choose a date in the future");
+//   } if (startTime > dateNow) {
+//     btnStartActive();
+//   }
+// };
+    
