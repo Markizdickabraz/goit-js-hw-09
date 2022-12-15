@@ -2,10 +2,19 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
 
-const bntStart = document.querySelector('button[data-start]');
-// console.log(bntStart);
-bntStart.addEventListener('click', isStartTimeMoreSelectedDate);
 
+const btnStart = document.querySelector('button[data-start]');
+// console.log(bntStart);
+// btnStart.addEventListener('click', isStartTimeMoreSelectedDate);
+
+const btnStartDisabled = () => {
+  btnStart.disabled = true;
+}
+btnStartDisabled();
+
+   const btnStartActive = () => {
+    btnStart.disabled = false;
+   }
 
 const options = {
   enableTime: true,
@@ -13,10 +22,11 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    selectedDate.push(this.selectedDates[0]);
-    startTime = selectedDate[0];
-    // console.dir(selectedDates[0]);
-    console.log(startTime);
+    if (this.defaultDate < this.selectedDates[0]){
+      window.alert("Please choose a date in the future");
+      console.log(this.defaultDate);
+    }
+    // console.log(this.defaultDate);
   },
 };
 
@@ -30,15 +40,18 @@ let startTime = ' ';
 
 flatpickr("#datetime-picker", options);
 
+// isStartTimeMoreSelectedDate();
 
-function isStartTimeMoreSelectedDate() {
-  const dateNow = new Date();
-  console.log(dateNow);
-  if (startTime < dateNow) {
-    // console.log(startTime);
-    window.alert("Please choose a date in the future");
-  }
-}
+// function isStartTimeMoreSelectedDate() {
+//   const dateNow = new Date();
+//   // console.log(startTime);
+//   if (startTime < dateNow) {
+//     // console.log(startTime);
+//    return window.alert("Please choose a date in the future");
+//   } if (startTime > dateNow) {
+//     btnStartActive();
+//   }
+// };
     
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -70,4 +83,3 @@ function convertMs(ms) {
 //   }
 // }
 
-// timer.start();
