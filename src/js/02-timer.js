@@ -2,6 +2,9 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
 
+const bntStart = document.querySelector('button[data-start]');
+// console.log(bntStart);
+bntStart.addEventListener('click', isStartTimeMoreSelectedDate);
 
 const options = {
   enableTime: true,
@@ -9,13 +12,24 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
+    selectedDate.push(this.selectedDates[0]);
     console.dir(selectedDates[0]);
   },
 };
 
+let selectedDate = [];
+console.log(selectedDate);
 
-flatpickr("#datetime-picker", {options});
+flatpickr("#datetime-picker", options);
 
+
+function isStartTimeMoreSelectedDate() {
+  const dateNow = Date.now();
+  console.log(dateNow);
+  if (selectedDate < dateNow) {
+    window.alert("Please choose a date in the future");
+  }
+}
     
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -40,5 +54,11 @@ function convertMs(ms) {
 // console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
 // console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
 
+// const timer = {
+//   start() {
+//     const startTime = options.onClose;
+//     console.log(startTime);
+//   }
+// }
 
-
+// timer.start();
