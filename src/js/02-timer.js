@@ -6,6 +6,7 @@ const bntStart = document.querySelector('button[data-start]');
 // console.log(bntStart);
 bntStart.addEventListener('click', isStartTimeMoreSelectedDate);
 
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -13,20 +14,28 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     selectedDate.push(this.selectedDates[0]);
-    console.dir(selectedDates[0]);
+    startTime = selectedDate[0];
+    // console.dir(selectedDates[0]);
+    console.log(startTime);
   },
 };
 
+
 let selectedDate = [];
-console.log(selectedDate);
+
+let startTime = ' ';
+
+
+// console.log(selectedDate);
 
 flatpickr("#datetime-picker", options);
 
 
 function isStartTimeMoreSelectedDate() {
-  const dateNow = Date.now();
+  const dateNow = new Date();
   console.log(dateNow);
-  if (selectedDate < dateNow) {
+  if (startTime < dateNow) {
+    // console.log(startTime);
     window.alert("Please choose a date in the future");
   }
 }
