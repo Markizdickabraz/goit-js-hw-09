@@ -1,11 +1,14 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
-
+const days = document.querySelector('.value[data-days]');
+const hours = document.querySelector('.value[data-hours]');
+const minutes = document.querySelector('.value[data-minutes]');
+const seconds = document.querySelector('.value[data-seconds]');
 
 const btnStart = document.querySelector('button[data-start]');
 // console.log(bntStart);
-// btnStart.addEventListener('click', isStartTimeMoreSelectedDate);
+
 
 const btnStartDisabled = () => {
   btnStart.disabled = true;
@@ -17,6 +20,8 @@ const btnStartActive = () => {
 
 };
 
+let selectedDate = ' ';
+let dateNow = ' ';
 
 const options = {
   enableTime: true,
@@ -24,21 +29,44 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    const DateNow = new Date();
-    const selectedDate = selectedDates[0]
-    if (DateNow > selectedDate) {
+      dateNow = new Date();
+      selectedDate = selectedDates[0];
+    if (dateNow > selectedDate) {
       window.alert("Please choose a date in the future");
       btnStartDisabled();
     } else {
       btnStartActive();
-      console.log(selectedDate)
+      // console.log(selectedDate)
     };
   },
 };
 
 flatpickr("#datetime-picker", options);
 
+let intervalId = null;
+function timer() {
+  btnStartDisabled();
+  
+  intervalId = setInterval(() => {
+    const overTime = Date.now();
+    const deltaTime = selectedDate - overTime;
+    const timerCompomemts = convertMs(deltaTime);
+    
+    // console.log(deltaTime);
+    console.log(timerCompomemts);
+  }, 1000);
+  
+  
+};
+// timer.start();
 
+
+btnStart.addEventListener('click', timer);
+
+function addLeadingZerovalue(value) {
+  // padStart(value) 
+    return String(value).padStart(2, '0');
+  };
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -50,38 +78,16 @@ function convertMs(ms) {
   // Remaining days
   const days = Math.floor(ms / day);
   // Remaining hours
-  const hours = Math.floor((ms % day) / hour);
+  const hours = addLeadingZerovalue(Math.floor((ms % day) / hour));
   // Remaining minutes
-  const minutes = Math.floor(((ms % day) % hour) / minute);
+  const minutes =  addLeadingZerovalue(Math.floor(((ms % day) % hour) / minute));
   // Remaining seconds
-  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+  const seconds = addLeadingZerovalue(Math.floor((((ms % day) % hour) % minute) / second));
 
   return { days, hours, minutes, seconds };
-}
+};
 
-// console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-// console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-// console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
-
-// const timer = {
-//   start() {
-//     const startTime = options.onClose;
-//     console.log(startTime);
-//   }
+// function updateTimerFace({ days, hours, minutes, seconds }) {
+//   days.textContent = ${ days };
 // }
-
-// console.log(selectedDate);
-
-// isStartTimeMoreSelectedDate();
-
-// function isStartTimeMoreSelectedDate() {
-//   const dateNow = new Date();
-//   // console.log(startTime);
-//   if (startTime < dateNow) {
-//     // console.log(startTime);
-//    return window.alert("Please choose a date in the future");
-//   } if (startTime > dateNow) {
-//     btnStartActive();
-//   }
-// };
     
