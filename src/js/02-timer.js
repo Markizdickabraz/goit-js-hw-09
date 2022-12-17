@@ -1,10 +1,10 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
-const days = document.querySelector('.value[data-days]');
-const hours = document.querySelector('.value[data-hours]');
-const minutes = document.querySelector('.value[data-minutes]');
-const seconds = document.querySelector('.value[data-seconds]');
+const faceDays = document.querySelector('.value[data-days]');
+const faceHours = document.querySelector('.value[data-hours]');
+const faceMinutes = document.querySelector('.value[data-minutes]');
+const faceSeconds = document.querySelector('.value[data-seconds]');
 
 const btnStart = document.querySelector('button[data-start]');
 // console.log(bntStart);
@@ -34,6 +34,7 @@ const options = {
     if (dateNow > selectedDate) {
       window.alert("Please choose a date in the future");
       btnStartDisabled();
+      window.location.reload();
     } else {
       btnStartActive();
       // console.log(selectedDate)
@@ -44,16 +45,18 @@ const options = {
 flatpickr("#datetime-picker", options);
 
 let intervalId = null;
+
+
 function timer() {
   btnStartDisabled();
   
   intervalId = setInterval(() => {
     const overTime = Date.now();
     const deltaTime = selectedDate - overTime;
-    const timerCompomemts = convertMs(deltaTime);
-    
+    const { days, hours, minutes, seconds } = convertMs(deltaTime);
+    updateTimerFace({ days, hours, minutes, seconds });
     // console.log(deltaTime);
-    console.log(timerCompomemts);
+    console.log(`${days} : ${hours} : ${minutes} : ${seconds}`);  
   }, 1000);
   
   
@@ -76,7 +79,7 @@ function convertMs(ms) {
   const day = hour * 24;
   
   // Remaining days
-  const days = Math.floor(ms / day);
+  const days = addLeadingZerovalue(Math.floor(ms / day));
   // Remaining hours
   const hours = addLeadingZerovalue(Math.floor((ms % day) / hour));
   // Remaining minutes
@@ -87,7 +90,18 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 };
 
-// function updateTimerFace({ days, hours, minutes, seconds }) {
-//   days.textContent = ${ days };
-// }
-    
+function updateTimerFace({ days, hours, minutes, seconds }) {
+  faceDays.textContent = `${days}`;
+//  console.dir(faceDays);
+  faceHours.textContent = `${hours}`;
+  faceMinutes.textContent = `${minutes}`;
+  faceSeconds.textContent = `${seconds}`;
+
+  isTimerClockNull();
+};
+
+function isTimerClockNull(){
+  if (faceSeconds.textContent == 0){
+    clearInterval(intervalId);
+  }
+};
