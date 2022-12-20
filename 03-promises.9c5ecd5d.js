@@ -1,0 +1,2 @@
+const e=document.getElementsByName("delay"),t=document.getElementsByName("step"),n=document.getElementsByName("amount"),l=document.querySelector("button");let a=null,o=null,u=null;l.addEventListener("click",(function(m,c){event.preventDefault(),l.disabled=!0,u=e[0].value;return new Promise(((e,l)=>{setTimeout((()=>{c=t[0].value,o=setInterval((()=>{a+=1,n[0].value==a&&(clearInterval(o),location.reload());Math.random()>.3||console.log(a)}),c)}),u)}))}));
+//# sourceMappingURL=03-promises.9c5ecd5d.js.map
