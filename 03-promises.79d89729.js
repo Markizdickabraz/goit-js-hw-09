@@ -1,2 +1,0 @@
-const e=document.getElementsByName("delay"),t=document.getElementsByName("step"),l=document.getElementsByName("amount"),n=document.querySelector("button");let o=null,a=null,u=null;n.addEventListener("click",(function(n,c){a=e[0].value,u=l[0].value;for(let e=1;e<=u;e+=1)c=t[0].value,o=setInterval((()=>{const e=new e(((e,t)=>{Math.random()>.3?(e(n,c),console.log(e)):(t(n,c),console.log(t))}),c)})),clearInterval(o)}));
-//# sourceMappingURL=03-promises.79d89729.js.map
