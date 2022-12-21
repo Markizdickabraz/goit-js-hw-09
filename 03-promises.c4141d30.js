@@ -1,0 +1,2 @@
+!function(){var e=document.getElementsByName("delay"),n=document.getElementsByName("step"),t=document.getElementsByName("amount"),l=document.querySelector("button"),o=null,a=null;l.addEventListener("click",(function(l,u){e[0].value,a=t[0].value;for(var c=1;c<=a;c+=1)u=n[0].value,o=setInterval((function(){var e=new e((function(e,n){Math.random()>.3?(e(l,u),console.log(e)):(n(l,u),console.log(n))}),u)})),clearInterval(o)}))}();
+//# sourceMappingURL=03-promises.c4141d30.js.map
