@@ -19,15 +19,21 @@ btn.addEventListener('click', callCreatePromiseNOW);
 
 function callCreatePromiseNOW(event) {
   event.preventDefault();
-
+  delay = inputStepDelay[0].value;
   amount = inputAmount[0].value;
   firstDelay = inputFirstDelay[0].value;
-  console.log(firstDelay);
+  // console.log(firstDelay);
   timeoutId = setTimeout(() => {
     for (let i = 1; i < amount; i += 1) {
       setTimeout(() => {
      
-      createPromise();
+    createPromise(2, 1500)
+  .then(({ position, delay }) => {
+    console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+  })
+  .catch(({ position, delay }) => {
+    console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+  });
         
     }, delay);
     }
@@ -53,19 +59,24 @@ function createPromise(position, delay) {
 
   })
   return promise;
-}
+};
 
-promise
-  .then(({ position, delay }) => {
-    console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-  })
-  .catch(({ position, delay }) => {
-    console.log(`❌ Rejected promise ${position} in ${delay}ms`);
-  });
-
-// console.log(createPromise());
+// promise
+//   .then(({ position, delay }) => {
+//     console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+//   })
+//   .catch(({ position, delay }) => {
+//     console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+//   });
 
 
+// createPromise(2, 1500)
+//   .then(({ position, delay }) => {
+//     console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+//   })
+//   .catch(({ position, delay }) => {
+//     console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+//   });
 
 
 
